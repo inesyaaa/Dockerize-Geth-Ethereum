@@ -1,0 +1,83 @@
+version: "3.7"
+
+services:
+  geth-node1:
+    hostname: geth-node1
+    image: node1:v2
+    command: 
+      --nodekey root/.ethereum/geth/boot.key
+      --bootnodes enode://288cb9ed6ca234fb14827ff963624cba2200db3f58810dc70f65289f3238bff1645baaa69b62d1acb743c5a321cb23582e0abb771a14c031bf594b4b8d1077cd@geth-node1:30303,enode://189453c1eaaf6730cc230e90abd3c6ec01c02ddb31edb1c430f518655be6dadbbbe1c65152a98f98936bb3b17e08b0311df5129df708dbd70c25565af0017572@127.0.0.1:30306,enode://a8bcc4b5fdc1ac0cc2b5f3e30dce82abd9bad13dbd710c24069c5fe661e718c355807b98bbf2a0f142a79d35bd4f98c49f64f836a709bcc0e9f0360dc5c2feb0@127.0.0.1:30307
+      --allow-insecure-unlock
+      --http
+      --http.addr="0.0.0.0"
+      --http.api="eth,web3,net,admin,personal"
+      --http.vhosts "0.0.0.0"
+      --http.port 8545
+      --http.corsdomain="*"
+      --networkid=12345
+      --unlock 0x1fd5fab8fa1d12217e8a153b9ede4a487c5fc058
+      --password root/.ethereum/geth/password.txt
+      --miner.etherbase=0x1fd5fab8fa1d12217e8a153b9ede4a487c5fc058
+      --mine
+      --miner.threads=1
+    ports:
+      - "30303:30303"
+    networks:
+      priv-eth-net:
+
+  geth-node2:
+    hostname: geth-node2
+    image: node2:v1
+    depends_on:
+      - geth-node1
+    command: 
+      --nodekey root/.ethereum/geth/boot.key
+      --bootnodes enode://288cb9ed6ca234fb14827ff963624cba2200db3f58810dc70f65289f3238bff1645baaa69b62d1acb743c5a321cb23582e0abb771a14c031bf594b4b8d1077cd@geth-node1:30303,enode://189453c1eaaf6730cc230e90abd3c6ec01c02ddb31edb1c430f518655be6dadbbbe1c65152a98f98936bb3b17e08b0311df5129df708dbd70c25565af0017572@127.0.0.1:30306,enode://a8bcc4b5fdc1ac0cc2b5f3e30dce82abd9bad13dbd710c24069c5fe661e718c355807b98bbf2a0f142a79d35bd4f98c49f64f836a709bcc0e9f0360dc5c2feb0@127.0.0.1:30307
+      --allow-insecure-unlock
+      --http
+      --http.addr="0.0.0.0"
+      --http.api="eth,web3,net,admin,personal"
+      --http.vhosts "0.0.0.0"
+      --http.port 8546
+      --http.corsdomain="*"
+      --networkid=12345
+      --unlock 0xb278790e9e5b23277863521733cf7882486c3b3f
+      --password root/.ethereum/geth/password.txt
+      --miner.etherbase=0xb278790e9e5b23277863521733cf7882486c3b3f
+      --mine
+      --miner.threads=1
+    ports:
+      - "30306:30303"
+    networks:
+      priv-eth-net:
+
+  geth-node3:
+    hostname: geth-node3
+    image: node3:v1
+    depends_on:
+      - geth-node1
+    command: 
+      --nodekey root/.ethereum/geth/boot.key
+      --bootnodes enode://288cb9ed6ca234fb14827ff963624cba2200db3f58810dc70f65289f3238bff1645baaa69b62d1acb743c5a321cb23582e0abb771a14c031bf594b4b8d1077cd@geth-node1:30303,enode://189453c1eaaf6730cc230e90abd3c6ec01c02ddb31edb1c430f518655be6dadbbbe1c65152a98f98936bb3b17e08b0311df5129df708dbd70c25565af0017572@127.0.0.1:30306,enode://a8bcc4b5fdc1ac0cc2b5f3e30dce82abd9bad13dbd710c24069c5fe661e718c355807b98bbf2a0f142a79d35bd4f98c49f64f836a709bcc0e9f0360dc5c2feb0@127.0.0.1:30307
+      --allow-insecure-unlock
+      --http
+      --http.addr="0.0.0.0"
+      --http.api="eth,web3,net,admin,personal"
+      --http.vhosts "0.0.0.0"
+      --http.port 8547
+      --http.corsdomain="*"
+      --networkid=12345
+      --unlock 0x07d765c68d23c00a8a2e85f91d0cb99afea4616c
+      --password root/.ethereum/geth/password.txt
+      --miner.etherbase=0x07d765c68d23c00a8a2e85f91d0cb99afea4616c
+      --mine
+      --miner.threads=1
+    ports:
+      - "30307:30303"
+    networks:
+      priv-eth-net:
+
+networks:
+  priv-eth-net:
+    driver: bridge
+    name: priv-eth-net

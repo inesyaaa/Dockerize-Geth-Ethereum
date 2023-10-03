@@ -1,0 +1,14 @@
+FROM ethereum/client-go:v1.11.6
+
+# ubah sesuai path dan nama file
+COPY genesis.json node2/UTC--2023-09-27T04-04-32.183812100Z--b278790e9e5b23277863521733cf7882486c3b3f node2/boot.key password.txt /tmp/
+
+# ubah <file wallet> sesuai dengan nama wallet masing-masing
+RUN geth init /tmp/genesis.json \
+    && rm -f ~/.ethereum/geth/nodekey \
+    && mv /tmp/UTC--2023-09-27T04-04-32.183812100Z--b278790e9e5b23277863521733cf7882486c3b3f root/.ethereum/keystore/ \
+    && mv /tmp/password.txt root/.ethereum/geth \
+    && mv /tmp/boot.key root/.ethereum/geth
+
+# sesuaikan penggunaan entrypoint atau cmd
+ENTRYPOINT ["geth"]
