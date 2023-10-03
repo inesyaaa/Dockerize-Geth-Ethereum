@@ -39,7 +39,7 @@
 1. Buat Dockerfile dengan menggunakan file dan kredensial yang sudah dihasilkan sebelumnya.
 2. Build images docker
     ```sh
-        docker build -t <nama_image>:<tag> -f <nama file dockerfiel> .
+    docker build -t <nama_image>:<tag> -f <nama file dockerfiel> .
     ```
     untuk melihat images berhasil di build
         - `docker images`
@@ -48,22 +48,22 @@
 
 4. Jalankan file docker-compose.yaml dengan cara:
     ```sh
-        'docker compose up -d' atau 'docker-compose up -d'
+    'docker compose up -d' atau 'docker-compose up -d'
     ```
 
 5. Setelah itu lihat daftar kontainer yang berjalan
     ```sh
-        docker ps
+    docker ps
     ```
 
 6. Lihat Log dari Kontainer yang dibuat
     ```sh
-        docker logs <nama_kontainer_atau_id>
+    docker logs <nama_kontainer_atau_id>
     ```
 
 7. Menjalankan Shell di dalam Kontainer
     ```sh
-        docker exec -it <id> geth attach
+    docker exec -it <id> geth attach
     ```
 
 
